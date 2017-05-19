@@ -47,16 +47,20 @@ having  max(e.salary) != min(e.salary)
 
 6. 자신이 속한 부서의 평균급여보다 많은 급여를 받는 직원정보만 조회하시오.
    단, 출력결과에 자신이 속한 부서의 평균 급여정보도 출력되어야한다. 
-select first_name
-from employees
-where salary >= (select avg(e.salary) from employees e, departments d
-where e.department_id = d.department_id group by d.department_id)
+select e.first_name 이름, a.department_name 부서명, e.salary 급여, a.avg 부셔평균급여
+from employees e, ( select  d.department_name, d.department_id id, avg(e.salary) avg
+				from employees e, departments d
+				where e.department_id = d.department_id
+				group by d.department_id, d.department_name ) a
+where e.department_id=a.id and e.salary>=a.avg
 
 
 
 
 7. '월'별 최대급여자의 이름, 급여를 조회하시오.
-
+select e.first_name 이름, e.salary 급여
+from employees e
+where 
 
 
 
