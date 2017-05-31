@@ -1,5 +1,7 @@
 package study.java.apiTest;
 
+import java.util.Date;
+
 public class PatternTest {
 	public static void main(String[] args) {
 		String phone = "010-1234-5678";
@@ -10,5 +12,6 @@ public class PatternTest {
 		String email = "sorhtfl12@gmail.com";
 		String pattern2 = "[a~zA~Z0~9]+@[a~z]+.[com]{3}";
 		System.out.println(email.matches(pattern2));
+		
 	}
 }

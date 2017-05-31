@@ -3,35 +3,34 @@ package study.java.argorithm.baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
 		String str = br.readLine();
-		int N = Integer.parseInt(str.split(" ")[0]);
-		int K = Integer.parseInt(str.split(" ")[1]);
-		int size = K;
-		int result = 1;
-		if(K != 0 && K != N){
-			if(N-K < size) K = N-K;
-			
-			int[][] arr = new int[2][K+1];
-			//init
-			arr[0][0]=1;
-			arr[0][1]=1;
-			int mod = 1000000007;
-			for(int i=2; i<=N; i++){
-				for(int j=1; j<=K; j++){
-					arr[1][j] = ((arr[0][j-1] % mod) + (arr[0][j] % mod)) % mod;
+		int[] score = new int[n];
+		int result =1;
+		
+		for(int i=0; i<n; i++){
+			score[i] = Integer.parseInt(str.split(" ")[i]);
+		}
+		Arrays.sort(score);
+		
+		int sum=0;
+		for(int value : score){
+			sum+=value;
+		}
+		if(sum != n*(n-1)/2){
+			result = -1;
+		}else{
+			for(int i=0; i<n; i++){
+				for(int j = i+score[i]+1; j<n; j++){
+					score[j] -= 1;
 				}
-				for(int k=1; k<=K; k++){
-					arr[0][k] = arr[1][k];
-				}
-				if(i<=K){
-					arr[0][i]=1;
-				}
+				if(score[i] <0) result = -1;
 			}
-			result = arr[0][K];
 		}
 		System.out.println(result);
 	}
